@@ -1,0 +1,29 @@
+{
+  "name": "mongoose-adm",
+  "version": "1.0.0",
+  "description": "A express middle that provide a admin route for mongoose. Easy to use and extend.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simba-fs/mongoose-adm.git"
+  },
+  "keywords": [
+    "mongoose",
+    "admin"
+  ],
+  "author": "Simba Fs <simba.fs@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/simba-fs/mongoose-adm/issues"
+  },
+  "homepage": "https://github.com/simba-fs/mongoose-adm#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "mongoose": "^5.10.13"
+  }
+}
