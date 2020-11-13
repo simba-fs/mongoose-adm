@@ -19,4 +19,25 @@ const Post = mongoose.model('post', new mongoose.Schema({
 	content: String
 }));
 
+app.use('/', Admin.restful({
+	model: Post,
+	RWConfig: {},
+	createConfig: {},
+	method: {
+		beforeGet: function(){},
+		afterGet: function(){},
+		beforePost: function(){},
+		afterPost: function(){},
+		beforePut: function(){},
+		afterPut: function(){},
+		beforeDelete: function(){},
+		afterDelete: function(){}
+	},
+	onGet: function(){},
+	onPost: function(){},
+	onPut: function(){},
+	onDelete: function(){},
+	
+}))
+
 app.listen(3000, () => console.log('listen on port 3000'));
