@@ -40,10 +40,10 @@ app.use('/', Admin.restful({
 	method: {
 		before: function(){},
 		after: {
-			get: function(){}.
-			post: function(){}.
-			put: function(){}.
-			delete: function(){}.
+			get: function(){},
+			post: function(){},
+			put: function(){},
+			delete: function(){}
 		},
 	},
 	// on<method> equal to before.<method>. If both of is set, before.<method> will be execute firstk

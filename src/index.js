@@ -1,7 +1,5 @@
-const router = require('express').Router();
+const restful = require('./restful/index');
 
 module.exports = {
-	restful: function(config){
-		return router;
-	}
+	restful
 }
