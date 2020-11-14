@@ -21,23 +21,36 @@ const Post = mongoose.model('post', new mongoose.Schema({
 
 app.use('/', Admin.restful({
 	model: Post,
-	RWConfig: {},
-	createConfig: {},
-	method: {
-		beforeGet: function(){},
-		afterGet: function(){},
-		beforePost: function(){},
-		afterPost: function(){},
-		beforePut: function(){},
-		afterPut: function(){},
-		beforeDelete: function(){},
-		afterDelete: function(){}
+	// RWConfig can define which columns to be read or written. If it is not set, you cannot write and view it.
+	RWConfig: {
+		title: 'rw',
+		author: 'r',
+		published: 'rw',
+		publishedDate: 'r',
+		content: 'rw'
 	},
+	// Admin page will read the column in this array to c generate a create form. If it is not define, the create form will not be generate.
+	createConfig: [
+		'title',
+		'author',
+		'published',
+		'conetent'
+	],
+	// You can custom function for eac method. Before or after can be Object or Function. 
+	method: {
+		before: function(){},
+		after: {
+			get: function(){}.
+			post: function(){}.
+			put: function(){}.
+			delete: function(){}.
+		},
+	},
+	// on<method> equal to before.<method>. If both of is set, before.<method> will be execute firstk
 	onGet: function(){},
 	onPost: function(){},
 	onPut: function(){},
-	onDelete: function(){},
-	
-}))
+	onDelete: function(){}
+}));
 
 app.listen(3000, () => console.log('listen on port 3000'));
