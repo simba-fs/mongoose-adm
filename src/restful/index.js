@@ -1,4 +1,4 @@
-const formatter = require('./configForamtter');
+const formatter = require('./configFormatter');
 
 module.exports = function restful(config){
 	// format the config
@@ -9,6 +9,6 @@ module.exports = function restful(config){
 	router.get('/', (req, res, next) => {
 		res.send('<h1>Hello World</h1>');
 	});
-
+	
 	return router;
 }

@@ -24,8 +24,11 @@ app.use('/', Admin.restful({
 	// RWConfig can define which columns to be read or written. If it is not set, you cannot write and view it.
 	RWConfig: {
 		title: 'rw',
-		author: 'r',
-		published: 'rw',
+		author: ['r'],
+		published: {
+			read: true,
+			write: true
+		},
 		publishedDate: 'r',
 		content: 'rw'
 	},
