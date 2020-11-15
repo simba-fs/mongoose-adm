@@ -69,6 +69,5 @@ module.exports = function configForamtter(config){
 
 	// method
 	config.method = formatMethod(config || {});
-
 	return config;
 }
