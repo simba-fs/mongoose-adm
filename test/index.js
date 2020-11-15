@@ -49,7 +49,7 @@ app.use('/', Admin.restful({
 			delete: function(){}
 		},
 	},
-	// on<method> equal to before.<method>. If both of is set, before.<method> will be execute firstk
+	// on<method> equal to before.<method>. If both of is set, before.<method> will be execute first.
 	onGet: function(){},
 	onPost: function(){},
 	onPut: function(){},

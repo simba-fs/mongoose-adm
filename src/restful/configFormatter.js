@@ -28,9 +28,47 @@ function formatRWConfig(RWConfig){
 	return RWConfig;
 }
 
+function formatMethod(config){
+	let method = {};
+
+	// before
+	let before = config?.method?.before;
+	if(typeof before === 'function'){
+		method.before.get = [before, config?.onGet].filter(i => i);
+		method.before.post = [before, config?.onPost].filter(i => i);
+		method.before.put = [before, config?.onPut].filter(i => i);
+		method.before.delete = [before, config?.onDelete].filter(i => i);
+	}else{
+		method.before.get = [before?.get, config?.onGet].filter(i => i);
+		method.before.post = [before?.post, config?.onPost].filter(i => i);
+		method.before.put = [before?.put, config?.onPut].filter(i => i);
+		method.before.delete = [before?.delete, config?.onDelete].filter(i => i);
+	}
+
+	// after
+	let after = config?.method?.after;
+	if(typeof after === 'function'){
+		method.after.get = [after, config?.onGet].filter(i => i);
+		method.after.post = [after, config?.onPost].filter(i => i);
+		method.after.put = [after, config?.onPut].filter(i => i);
+		method.after.delete = [after, config?.onDelete].filter(i => i);
+	}else{
+		method.after.get = [after?.get, config?.onGet].filter(i => i);
+		method.after.post = [after?.post, config?.onPost].filter(i => i);
+		method.after.put = [after?.put, config?.onPut].filter(i => i);
+		method.after.delete = [after?.delete, config?.onDelete].filter(i => i);
+	}
+	config.method = method;
+
+	return method;
+}
+
 module.exports = function configForamtter(config){
 	// RWConfig
 	config.RWConfig = formatRWConfig(config.RWConfig || {});
+
+	// method
+	config.method = formatMethod(config || {});
 
 	return config;
 }
