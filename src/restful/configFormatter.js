@@ -29,7 +29,7 @@ function formatRWConfig(RWConfig){
 }
 
 function formatMethod(config){
-	let method = {};
+	let method = {before: {}, after: {}};
 
 	// before
 	let before = config?.method?.before;
