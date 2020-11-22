@@ -1,17 +1,25 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Admin = require('../');
+const random = require('./random')();
 
-mongoose.connect('mongodb://127.0.0.1:27017/test', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb://127.0.0.1:27017', {useNewUrlParser: true, useUnifiedTopology: true})
 	.then(() => console.log('Connected to DB'))
 	.catch(e => console.error(e));
 
 const app = express();
 
 const Post = mongoose.model('post', new mongoose.Schema({
+	id: {
+		type: String,
+		default: random()
+	},
 	title: String,
 	author: String,
-	published: Boolean,
+	published: {
+		type: Boolean,
+		default: false
+	},
 	publishedDate: {
 		type: Date,
 		default: Date.now
@@ -19,10 +27,18 @@ const Post = mongoose.model('post', new mongoose.Schema({
 	content: String
 }));
 
+// Post.create({
+//     title: 'Test Post 2',
+//     author: 'Simba Fs',
+//     content: 'This is another test post with no content'
+// }).catch(console.error);
+
 app.use('/', Admin.restful({
 	model: Post,
+	index: 'id',
 	// RWConfig can define which columns to be read or written. If it is not set, you cannot write and view it.
 	RWConfig: {
+		id: 'r',
 		title: 'rw',
 		author: ['r'],
 		published: {
