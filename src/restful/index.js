@@ -1,4 +1,5 @@
 const formatter = require('./configFormatter');
+const queryNormalization = require('./queryNormalization');
 
 module.exports = function restful(config){
 	// format the config
@@ -9,6 +10,7 @@ module.exports = function restful(config){
 	// console.log(config);
 
 	router.all('/', (req, res, next) => {
+		return res.json(req.query);
 		return res.json(config.RWConfig);
 	});
 
