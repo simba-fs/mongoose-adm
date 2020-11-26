@@ -1,7 +1,8 @@
 /*
  *	/[:id]?
  *		// fillter, with prefix '_'
- *		_maxLength=10&
+ *		_pageLength=10&
+ *		_page=1&
  *		_orderBy=publishDate&
  *
  *		// special demand, only checking the column with read permission

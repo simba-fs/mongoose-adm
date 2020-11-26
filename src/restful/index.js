@@ -7,30 +7,15 @@ module.exports = function restful(config){
 	if(!config.index) throw new Error('index is not signed');
 
 	const router = require('express').Router();
-	// console.log(config);
 
 	router.all('/', (req, res, next) => {
-		return res.json(req.query);
 		return res.json(config.RWConfig);
 	});
 
-	router.get('/:id', async (req, res, next) => {
-		let data = await config.model.find({
-			[config.index]: req.params.id
-		});
-
-		let processedData = data.map(item => {
-			let data = {};
-			let RWConfig = config.RWConfig;
-			for(let i in RWConfig){
-				console.log({i, read: RWConfig[i].read})
-				if(RWConfig[i].read) data[i] = item[i];
-			}
-			return data;
-		})
-
-		return res.json(processedData);
-	});
+	router.get('/:id', require('./method/get')(config));
+	router.post('/:id', require('./method/post')(config));
+	router.put('/:id', require('./method/put')(config));
+	router.delete('/:id', require('./method/delete')(config));
 	
 	return router;
 }

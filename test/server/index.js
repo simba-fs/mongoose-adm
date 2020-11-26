@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Admin = require('../');
+const Admin = require('../../');
 const random = require('./random')();
 
 mongoose.connect('mongodb://127.0.0.1:27017', {useNewUrlParser: true, useUnifiedTopology: true})
