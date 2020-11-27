@@ -9,7 +9,8 @@ module.exports = function restful(config){
 	const router = require('express').Router();
 
 	router.all('/', (req, res, next) => {
-		return res.json(config.RWConfig);
+		if(req.query || req.body) return next();
+		else return res.json(config.RWConfig);
 	});
 
 	router.get('/:id', require('./method/get')(config));
