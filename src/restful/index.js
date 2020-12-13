@@ -1,5 +1,7 @@
-const formatter = require('./configFormatter');
-const queryNormalization = require('./queryNormalization');
+const formatter = require('./util/configFormatter');
+const queryNormalization = require('./util/queryNormalization');
+
+const queryBuilder = require('./middleware/queryBuilder.js');
 
 const setID = (req, res, next) => {
 	res.locals.id = req.params.id;
@@ -15,8 +17,10 @@ module.exports = function restful(config){
 	config = formatter(config);
 
 	const router = require('express').Router();
-	const method = require('./method')(config.model);
 
+	const method = require('./middleware/index.js')(config.model);
+
+	router.use('/', queryBuilder);
 	router.use('/:id', setID, method, send);
 	router.use('/', method, send);
 
@@ -24,6 +28,5 @@ module.exports = function restful(config){
 		res.json(config.RWConfig);
 	});
 
-	
 	return router;
 }
