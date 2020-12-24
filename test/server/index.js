@@ -31,9 +31,11 @@ const Post = mongoose.model('post', new mongoose.Schema({
 }));
 
 // Post.create({
+//     id: 123,
 //     title: 'Test Post',
 //     author: 'Simba Fs',
-//     content: 'This is a test post with no content'
+//     content: 'This is a test post with no content',
+//     published: true
 // }).catch(console.error);
 //
 // Post.create({

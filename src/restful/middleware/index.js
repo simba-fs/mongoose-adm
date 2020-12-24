@@ -8,9 +8,9 @@ const error = (e) => {
 
 module.exports = (Model, name) => {
 	const router = require('express').Router();
-
 	function get(req, res, next){
-		let id = res.locals.id;
+		if(Object.keys(res.locals.query).length === 0) return next();
+		let id = res.locals.query.id;
 
 		Model.find(res.locals.query)
 			.then(data => {

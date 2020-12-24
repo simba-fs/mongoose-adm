@@ -1,3 +1,4 @@
+const debug = require('debug')('restful');
 const formatter = require('./util/configFormatter');
 const queryNormalization = require('./util/queryNormalization');
 
@@ -9,8 +10,17 @@ const setID = (req, res, next) => {
 };
 
 const send = (req, res, next) => {
-	res.json(res.locals.data);
+	if(Object.keys(res.locals.data).length !== 0){
+		res.json(res.locals.data);
+	}else{
+		next();
+	}
 }
+
+const defaultdata = (req, res, next) => {
+	res.locals.data = {};
+	next();
+};
 
 module.exports = function restful(config){
 	// format the config
@@ -18,13 +28,26 @@ module.exports = function restful(config){
 
 	const router = require('express').Router();
 
+	// restful methods
 	const method = require('./middleware/index.js')(config.model);
 
-	router.use('/', queryBuilder);
-	router.use('/:id', setID, method, send);
-	router.use('/', method, send);
+	// default res.locals.data, it will be display when some error occur and mongoose can't get data
+	router.use(defaultdata);
 
-	router.all('/', (req, res, next) => {
+	// query builder, including id, attr in an query object
+	router.use(queryBuilder);
+
+	// for the format of request, those with id in pathname and those without
+	router.use('/:id', method, send);
+	router.use('/', method, send);
+	router.use((req, res, next) => {
+		debug('-->>> here!');
+		next();
+	})
+
+	// if nothing is match, do this
+	router.all('*', (req, res, next) => {
+		debug('!! --->> here')
 		res.json(config.RWConfig);
 	});
 
