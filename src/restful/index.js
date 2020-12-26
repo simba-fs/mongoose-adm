@@ -35,7 +35,7 @@ module.exports = function restful(config){
 	router.use(defaultdata);
 
 	// query builder, including id, attr in an query object
-	router.use(queryBuilder);
+	router.use(queryBuilder(config));
 
 	// for the format of request, those with id in pathname and those without
 	router.use('/:id', method, send);

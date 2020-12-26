@@ -6,17 +6,25 @@ const error = (e) => {
 	// res.status(400);
 }
 
+function filt(data, filter){
+	debug(data);
+	debug(filter);
+}
+
 module.exports = (Model, name) => {
 	const router = require('express').Router();
 	function get(req, res, next){
 		if(Object.keys(res.locals.query).length === 0) return next();
 		let id = res.locals.query.id;
 
+		debug('res.locals', req.locals);
+
 		Model.find(res.locals.query)
 			.then(data => {
 				res.locals.data = id ? data[0] : data;
 				res.status(200);
 			})
+			.then(data => filt(data, res.locals.filter))
 			.catch(error)
 			.finally(next);
 	}
@@ -47,7 +55,7 @@ module.exports = (Model, name) => {
 
 	function remove(req, res, next){
 		let data = req.data;
-		
+
 		Model.deleteOne(res.locals.query, data)
 			.then(data => {
 				res.locals.data = data;
