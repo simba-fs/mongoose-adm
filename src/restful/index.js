@@ -40,14 +40,9 @@ module.exports = function restful(config){
 	// for the format of request, those with id in pathname and those without
 	router.use('/:id', method, send);
 	router.use('/', method, send);
-	router.use((req, res, next) => {
-		debug('-->>> here!');
-		next();
-	})
 
 	// if nothing is match, do this
 	router.all('*', (req, res, next) => {
-		debug('!! --->> here')
 		res.json(config.RWConfig);
 	});
 

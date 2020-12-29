@@ -1,14 +1,10 @@
 const debug = require('debug')('restful');
+const filter = require('./filter');
 
 const error = (e) => {
 	debug(e);
 	// res.locals.error = e.message;
 	// res.status(400);
-}
-
-function filt(data, filter){
-	debug(data);
-	debug(filter);
 }
 
 module.exports = (Model, name) => {
@@ -17,14 +13,15 @@ module.exports = (Model, name) => {
 		if(Object.keys(res.locals.query).length === 0) return next();
 		let id = res.locals.query.id;
 
-		debug('res.locals', req.locals);
+		debug('res.locals', res.locals);
 
 		Model.find(res.locals.query)
 			.then(data => {
-				res.locals.data = id ? data[0] : data;
+				data = filter(id ? data[0] : data, res.locals.filter);
+				res.locals.data = data;
 				res.status(200);
+				return data;
 			})
-			.then(data => filt(data, res.locals.filter))
 			.catch(error)
 			.finally(next);
 	}
