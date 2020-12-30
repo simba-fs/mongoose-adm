@@ -16,9 +16,9 @@ This filter is inspired by [json server](https://github.com/typicode/json-server
 		- [x] limit
 		- [x] page
 	- [x] attr
-	- [ ] sort
-		- [ ] sort
-		- [ ] order
+	- [x] sort
+		- [x] sort
+		- [x] order
 	- [ ] slice
 		- [ ] start
 		- [ ] end
