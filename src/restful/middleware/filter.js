@@ -10,13 +10,27 @@ module.exports = function filter(data, filter){
 	debug('filt.data', data);
 	debug('filt.filter', filter);
 
-	// pagination
+	[data, filter] = slice(data, filter);
 	[data, filter] = paginate(data, filter);
-	// sort
 	[data, filter] = sort(data, filter);
 
 
 	return data;
+}
+
+
+/**
+ *	slice
+ *	@param {Array} data
+ *	@param {Object} filter
+ */
+function slice(data, filter){
+	let start = filter._start || 0;
+	let end = filter._end || data.length;
+
+	data = data.slice(start, end);
+
+	return [data, filter];
 }
 
 /**
@@ -60,3 +74,5 @@ function sort(data, filter){
 
 	return [data, filter];
 }
+
+	

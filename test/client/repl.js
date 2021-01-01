@@ -8,8 +8,8 @@ class Request{
 	constructor(path){
 		this.path = path;
 		this.initialPath = path;
-		this._query = {};
-		this._body = {};
+		this.query = {};
+		this.body = {};
 	}
 
 	/** util */
@@ -20,24 +20,24 @@ class Request{
 
 	/** query, body */
 	query(name, value){
-		if(value) this._query[name] = value;
-		else console.log('Query \'%s\' = \'%s\'', name, this._query[name]);
+		if(value) this.query[name] = value;
+		else console.log('Query \'%s\' = \'%s\'', name, this.query[name]);
 		return this;
 	}
 
 	removeQuery(name){
-		delete this._query[name];
+		delete this.query[name];
 		return this;
 	}
 
 	body(name, value){
-		if(value) this._body[name] = value;
-		else console.log('Body \'%s\' = \'%s\'', name, this._body[name]);
+		if(value) this.body[name] = value;
+		else console.log('Body \'%s\' = \'%s\'', name, this.body[name]);
 		return this;
 	}
 
 	removeBody(name){
-		delete this._body[name];
+		delete this.body[name];
 		return this;
 	}
 
@@ -62,58 +62,32 @@ class Request{
 	/** http methods */
 	get(){
 		return axios.get(this.path, {
-			params: this._query,
-			data: this._body
+			params: this.query,
+			data: this.body
 		}).then(this.showData, this.showData);
 	}
 
 	post(){
 		return axios.post(this.path, {
-			params: this._query,
-			data: this._body
+			params: this.query,
+			data: this.body
 		}).then(this.showData, this.showData);
 	}
 
 	put(){
 		return axios.put(this.path, {
-			params: this._query,
-			data: this._body
+			params: this.query,
+			data: this.body
 		}).then(this.showData, this.showData);
 	}
 
 	delete(){
 		return axios.delete(this.path, {
-			params: this._query,
-			data: this._body
+			params: this.query,
+			data: this.body
 		}).then(this.showData, this.showData);
 	}
 }
 
 api = new Request(process.argv[2] || 'http://localhost:3000');
 replServer = repl.start(`${api.path} > `);
-
-/** define command */
-// replServer.defineCommand('cd', {
-//     help: 'Customed command, change current path',
-//     action: api.cd
-// });
-// replServer.defineCommand('get', {
-//     help: 'Customed command, http method: GET',
-//     action: () => api.get()
-// });
-// replServer.defineCommand('query', {
-//     help: 'Customed command, set/get query',
-//     action: (...arg) => api.query(...arg)
-// });
-// replServer.defineCommand('removeQuery', {
-//     help: 'Customed command, remove query',
-//     action: (...arg) => api.removeQuery(...arg)
-// });
-// replServer.defineCommand('body', {
-//     help: 'Customed command, set/get body',
-//     action: (...arg) => api.body(...arg)
-// });
-// replServer.defineCommand('removeBody', {
-//     help: 'Customed command, remove body',
-//     action: (...arg) => api.removeBody(...arg)
-// });
