@@ -15,6 +15,7 @@ class Request{
 	/** util */
 	showData(data){
 		console.log(data.data);
+		return data.data;
 	}
 
 	/** query, body */
@@ -59,39 +60,32 @@ class Request{
 	}
 
 	/** http methods */
-	async get(){
-		data = await axios.get(this.path, {
+	get(){
+		return axios.get(this.path, {
 			params: this._query,
 			data: this._body
-		});
-		return data;
+		}).then(this.showData, this.showData);
 	}
 
 	post(){
-		axios.post(this.path, {
+		return axios.post(this.path, {
 			params: this._query,
 			data: this._body
 		}).then(this.showData, this.showData);
-		return this;
-
 	}
 
 	put(){
-		axios.put(this.path, {
+		return axios.put(this.path, {
 			params: this._query,
 			data: this._body
 		}).then(this.showData, this.showData);
-		return this;
-
 	}
 
 	delete(){
-		axios.delete(this.path, {
+		return axios.delete(this.path, {
 			params: this._query,
 			data: this._body
 		}).then(this.showData, this.showData);
-		return this;
-
 	}
 }
 
