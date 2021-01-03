@@ -25,8 +25,8 @@ module.exports = function filter(data, filter){
  *	@param {Object} filter
  */
 function slice(data, filter){
-	let start = filter._start || 0;
-	let end = filter._end || data.length;
+	let start = parseInt(filter._start) || 0;
+	let end = parseInt(filter._end) || data.length;
 
 	data = data.slice(start, end);
 
@@ -40,8 +40,8 @@ function slice(data, filter){
  */
 function paginate(data, filter){
 	if(!filter._limit) return [data, filter];
-	let limit = filter._limit;
-	let page = filter._page || 1;
+	let limit = parseInt(filter._limit);
+	let page = parseInt(filter._page) || 1;
 
 	data = data.slice(limit*(page-1), limit*page)
 	return [data, filter];
