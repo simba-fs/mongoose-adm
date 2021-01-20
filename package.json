@@ -4,7 +4,8 @@
   "description": "A express middle that provide a admin route for mongoose. Easy to use and extend.",
   "main": "src/index.js",
   "scripts": {
-    "dev": "DEBUG=restful nodemon ./test/server/index.js"
+    "dev": "DEBUG=restful nodemon ./test/server/index.js",
+	"test": "./test/client/repl.js"
   },
   "repository": {
     "type": "git",
